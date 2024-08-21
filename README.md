@@ -16,10 +16,10 @@
 ### Ход решения ###
 1. Для выполнения задания используется технология контейнеризации Docker. Требуется развернуть 5 docker-контейнеров:
    - database из образа mysql:8.0 и вольюмом ./dbdata:/var/lib/mysql;
-   - wordpress из образа wordpress:6.0.1-php8.0-fpm-alpine;
+   - wordpress из образа wordpress:6.0.1-php8.0-fpm-alpine и вольюмом ./wordpress:/var/www/html;
    - nginx из образа nginx:1.22.0-alpine и вольюмами ./wordpress:/var/www/html ./nginx-conf:/etc/nginx/conf.d;
    - node из образа node:16.13.2-alpine3.15 и вольюмом /node:/opt/server;
-   - app из собственного образа.
+   - app из собственного docker-образа.
 2. Деплой осуществляется с помощью docker-compose:
 ```shell
 version: '3'
