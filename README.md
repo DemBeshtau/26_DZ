@@ -201,4 +201,5 @@ f0a811abf220   wordpress:6.0.1-php8.0-fpm-alpine   "docker-entrypoint.s…"   3 
 
 ![изображение](https://github.com/user-attachments/assets/cc76c969-9ee0-4dd2-9fad-13f64c68e79a)
 
+&ensp;&ensp;Для автоматического конфигурирования инфраструктуры с помощью Ansible, подготовлен плейбук prov.yml.
 
