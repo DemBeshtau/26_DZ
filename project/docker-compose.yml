@@ -1,0 +1,65 @@
+version: '3'
+
+services:  
+  database:
+    image: mysql:8.0
+    container_name: database
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    networks:
+      - app-network
+
+  wordpress:
+    image: wordpress:6.0.1-php8.0-fpm-alpine
+    container_name: wordpress
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./wordpress:/var/www/html
+    networks:
+      - app-network
+    depends_on:
+      - database
+
+  nginx:
+    image: nginx:1.22.0-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8083:8083
+      - 8081:8081
+      - 8082:8082
+    volumes:
+      - ./wordpress:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+    networks:
+      - app-network
+    depends_on:
+      - wordpress
+
+  node:
+    image: node:16.13.2-alpine3.15
+    container_name: node
+    working_dir: /opt/server
+    volumes:
+      - ./node:/opt/server
+    command: node test.js
+    networks:
+      - app-network
+
+  app:
+    build: ./python
+    container_name: app
+    restart: always
+    env_file:
+      - .env
+    command: "gunicorn --workers=2 --bind=0.0.0.0:8000 mysite.wsgi:application"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

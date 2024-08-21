@@ -1,0 +1,96 @@
+---
+- name: Configuring DynamicWeb host  
+  hosts: DynamicWeb
+  become: yes
+  gather_facts: false
+  tasks:
+    - name: Installing docker packages
+      become: yes
+      apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: yes
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+        - python3-docker
+        - python3-pip
+      tags:
+        - docker
+
+    - name: Adding Docker's official GPG key
+      become: yes
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      tags:
+        - docker
+
+    - name: Verifying thath we have the key with the fingerprint
+      become: yes
+      apt_key:
+        id: 0EBFCD88
+        state: present
+      tags:
+        - docker
+
+    - name: Setting up the stable repository
+      become: yes
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable
+        state: present
+        update_cache: yes
+      tags:
+        - docker
+
+    - name: Update apt packages
+      become: yes
+      apt:
+        update_cache: yes
+      tags:
+        - docker
+
+    - name: Installing docker
+      become: yes
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+      tags:
+        - docker
+
+    - name: Adding remote "vagrant" user to "docker" group
+      become: yes
+      user:
+        name: vagrant
+        group: docker
+        append: true
+      tags:
+        - docker
+
+    - name: Installing docker-compose
+      become: yes
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 0777
+    
+    - name: Installing pip docker-compose
+      pip:
+        name: docker-compose
+
+    - name: Copying project
+      copy: 
+        src: ./project
+        dest: /home/vagrant
+
+    - name: Running conntainer
+      shell: 
+        cmd: "docker-compose -f docker-compose.yml up -d"
+        chdir: /home/vagrant/project
+
+      
+      
+...
