@@ -182,3 +182,23 @@ networks:
 	   }
    }
    ```
+4. Запуск контейнеров:
+```shell
+docker-compose up -d
+...
+docker ps
+ CONTAINER ID   IMAGE                               COMMAND                  CREATED       STATUS                          PORTS                                                                   NAMES
+860032539f1e   nginx:1.22.0-alpine                 "/docker-entrypoint.…"   3 hours ago   Up 3 hours                      80/tcp, 0.0.0.0:8081-8083->8081-8083/tcp, :::8081-8083->8081-8083/tcp   nginx
+f0a811abf220   wordpress:6.0.1-php8.0-fpm-alpine   "docker-entrypoint.s…"   3 hours ago   Up 3 hours                      9000/tcp                                                                wordpress
+8d555c5152be   project_app                         "gunicorn --workers=…"   3 hours ago   Up 3 hours                                                                                              app
+62ce3d8c2fa6   mysql:8.0                           "docker-entrypoint.s…"   3 hours ago   Restarting (1) 51 seconds ago                                                                           database
+26544677b744   node:16.13.2-alpine3.15             "docker-entrypoint.s…"   3 hours ago   Up 3 hours                                                                                              node  
+```
+5. Проверка работоспособности настроенной конфигурации:<br/>
+![изображение](https://github.com/user-attachments/assets/b7356232-2e31-4ee1-bbbf-786bab1edf10)
+
+![изображение](https://github.com/user-attachments/assets/f839c2ac-4542-4456-8a23-77dc54fb8f9d)
+
+![изображение](https://github.com/user-attachments/assets/cc76c969-9ee0-4dd2-9fad-13f64c68e79a)
+
+
