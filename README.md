@@ -197,9 +197,9 @@ f0a811abf220   wordpress:6.0.1-php8.0-fpm-alpine   "docker-entrypoint.s…"   3 
 5. Проверка работоспособности настроенной конфигурации:<br/>
 ![изображение](https://github.com/user-attachments/assets/b7356232-2e31-4ee1-bbbf-786bab1edf10)
 
-&ensp;&ensp;![изображение](https://github.com/user-attachments/assets/f839c2ac-4542-4456-8a23-77dc54fb8f9d)
+&ensp;&ensp;&ensp;&ensp;![изображение](https://github.com/user-attachments/assets/f839c2ac-4542-4456-8a23-77dc54fb8f9d)
 
-&ensp;&ensp;![изображение](https://github.com/user-attachments/assets/cc76c969-9ee0-4dd2-9fad-13f64c68e79a)
+&ensp;&ensp;&ensp;&ensp;![изображение](https://github.com/user-attachments/assets/cc76c969-9ee0-4dd2-9fad-13f64c68e79a)
 
 &ensp;&ensp;Для автоматического конфигурирования инфраструктуры с помощью Ansible, подготовлен плейбук prov.yml.
 
